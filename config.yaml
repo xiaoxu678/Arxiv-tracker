@@ -1,12 +1,15 @@
 categories: ["cs.CV", "cs.LG", "cs.AI"]
 keywords:
-  - "open vocabulary"
-  - "open-vocabulary"
-  - "open vocabulary segmentation"
-  - "open-vocabulary segmentation"
-  - "vision language model"
-  - "training-free"
-  - "training free"
+  - "Medical Image Registration"
+  - "Deformable Registration"
+  - "deformable"
+  - "Non-rigid Registration"
+  - "Image Alignment"
+  - "Dense Correspondence"
+  - "Cascaded"
+  - "Large Deformation"
+  - "Coarse-to-fine"
+  - "Deformation Field"
 
 # exclude_keywords: # 选择排除的关键词
 #   - "Large Language Model"
