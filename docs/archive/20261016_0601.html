@@ -1,0 +1,892 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>arXiv 论文速递</title><style>
+:root {
+  --bg:#f8fafc; --card:#ffffff; --text:#0f172a; --muted:#667085; --border:#e5e7eb; --acc:#2563eb;
+}
+:root[data-theme="dark"] {
+  --bg:#0b0f17; --card:#111827; --text:#e5e7eb; --muted:#9ca3af; --border:#1f2937; --acc:#2563eb;
+}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.6;}
+.container{max-width:900px;margin:0 auto;padding:18px;}
+.header{display:flex;gap:10px;justify-content:space-between;align-items:center;margin:8px 0 16px;flex-wrap:wrap}
+h1{font-size:22px;margin:0}
+.badge{font-size:12px;color:#111827;background:var(--acc);padding:2px 8px;border-radius:999px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px 18px;margin:14px 0;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.title{font-weight:700;margin:0 0 6px 0;font-size:18px}
+.meta-line{color:var(--muted);font-size:13px;margin:2px 0}
+.links a{color:var(--acc);text-decoration:none;margin-right:12px}
+.detail{margin-top:10px;background:rgba(2,6,23,.03);border:1px solid var(--border);border-radius:10px;padding:8px 10px}
+summary{cursor:pointer;color:var(--acc)}
+.mono{white-space:pre-wrap;background:rgba(2,6,23,.03);border:1px solid var(--border);padding:10px;border-radius:10px}
+.row{display:grid;grid-template-columns:1fr;gap:12px}
+@media (min-width: 860px) {
+  .row-2{grid-template-columns:1fr 1fr}
+}
+.footer{color:var(--muted);font-size:13px;margin:20px 0 10px}
+.hr{height:1px;background:var(--border);margin:14px 0}
+.history-list a{display:block;color:var(--acc);text-decoration:none;margin:4px 0}
+.controls{display:flex;gap:8px;align-items:center}
+.btn{border:1px solid var(--border);background:var(--card);padding:6px 10px;border-radius:10px;cursor:pointer;color:var(--text)}
+.btn:hover{border-color:var(--acc)}
+</style>
+<script>
+(function() {
+  const root = document.documentElement;
+  function apply(t) {
+    if (t==='dark') root.setAttribute('data-theme','dark');
+    else if (t==='light') root.removeAttribute('data-theme');
+    else {
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        root.setAttribute('data-theme','dark');
+      else root.removeAttribute('data-theme');
+    }
+  }
+  let t = localStorage.getItem('theme') || 'light';
+  if (!['light','dark','auto'].includes(t)) t='light';
+  apply(t);
+  window.__toggleTheme = function() {
+    let cur = localStorage.getItem('theme') || 'light';
+    if (cur==='light') cur='dark';
+    else if (cur==='dark') cur='auto';
+    else cur='light';
+    localStorage.setItem('theme', cur);
+    apply(cur);
+    const el=document.getElementById('theme-label');
+    if(el) el.textContent = cur.toUpperCase();
+  }
+  window.__expandAll = function(open) {
+    document.querySelectorAll('details').forEach(d => d.open = !!open);
+  }
+})();
+</script>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>arXiv 论文速递</h1>
+      <div style="display:flex;gap:10px;align-items:center">
+        
+<div class="controls">
+  <button class="btn" onclick="__toggleTheme()">Theme: <span id="theme-label" style="margin-left:6px">AUTO</span></button>
+  <button class="btn" onclick="__expandAll(true)">Expand All</button>
+  <button class="btn" onclick="__expandAll(false)">Collapse All</button>
+</div>
+
+        <span class="badge">2026-10-16 06:01</span>
+      </div>
+    </div>
+    <div class="hr"></div>
+    <div>Snapshot: 20261016_0601</div>
+    <div class="row"><div class="card">
+<div class="title">PhySGA: A Physics-Space Grounded Agentic Framework for Generalizable and Interactive 3D Composition</div>
+<div class="meta-line">Authors: Weichen Lyu, Chong Xia, Mingyu Dong, Long Xu, Shengjun Zhang, Yueqi Duan</div>
+<div class="meta-line">First: 2026-10-14T17:47:24+00:00 · Latest: 2026-10-14T17:47:24+00:00</div>
+<div class="meta-line">Comments: Project Page: https://agenticei.github.io/PhySGA-page/</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.20560v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.20560v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a> · <a href="https://agenticei.github.io/PhySGA-page/">Project1</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">3D object composition is pivotal to digital content creation and robot simulation, while also serving as a critical testbed for physical intelligence in foundation models. Previous methods either leverage large language models to directly predict object coordinates, or utilize generative diffusion priors to synthesize composite images for visual alignment, both of which rely on static priors in digital spaces. However, these methods consistently struggle with complex compositions such as precise hanging, gravity-driven settling and hidden containment, as these tasks require interactive construction processes involving global planning, fine-grained alignment, and physical simulation. To address these challenges, we propose PhySGA, a Physics-Space Grounded Agentic Framework for 3D composition via agent exploration and physical simulation, enabling the universal interactive assembly of rigid, articulated, and deformable objects. Directly applying vanilla LLMs or VLMs to this task proves insufficient, as current models inherently lack grounded physical understanding and interactive construction experience. To overcome this limitation, we design a collaborative feedforward-feedback architecture: an Assembly Agent focuses on geometric and kinematic reasoning for global step planning and coarse adjustment, while a Critic Agent reasons over contact dynamics for simulator state diagnosis and fine-grained closed-loop correction. Furthermore, Action Routers map semantic planning and analysis onto executable physical primitives within the simulator, while a task-specific Self-Evolving Skill Library distills historical trial-and-error feedback into reusable experiences, boosting success rates and minimizing exploration attempts. Extensive experiments within Isaac Sim demonstrate that PhySGA significantly surpasses existing methods in relation fidelity, physical plausibility, and visual quality.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">3D object composition is pivotal to digital content creation and robot simulation, while also serving as a critical testbed for physical intelligence in foundation models.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">RoboSimStudio: An Interactive Toolkit for Human and Agent Rapid Real2Sim of Robot Manipulation Tasks</div>
+<div class="meta-line">Authors: Kaiyuan Chen, Shuangyu Xie, Uksang Yoo, Xinyue Zhu, Cael Magner, Alvin Zhu, Daehwa Kim, Eric Heiden, Erwin Coumans, Miles Macklin, Spencer Huang, Ken Goldberg</div>
+<div class="meta-line">First: 2026-10-13T17:55:14+00:00 · Latest: 2026-10-14T17:02:18+00:00</div>
+<div class="meta-line">Comments: 13 pages, 7 figures, 1 table. Project website: https://robosimstudio.github.io</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.18835v2">Abs</a> · <a href="https://arxiv.org/pdf/2610.18835v2">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a> · <a href="https://robosimstudio.github.io">Project1</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">It has been difficult to accurately model the physics of the interaction between a robot and the objects it manipulates, including contact mechanics, coupled contact dynamics, deformations, stiffness and friction. We present RoboSimStudio (RSS), an interactive toolkit that makes choices of solver, contact model, and physical parameters explicit and editable, allowing both humans and coding agents to quickly create and iteratively refine simulations based on observed physical behavior. We implement RSS with the open Newton physics simulation system and describe experiments with human-guided real2sim using (1) visual evaluation, (2) force-feedback and (3) agentic Real2Sim2Real. Code, video and additional information can be found on the project website: https://robosimstudio.github.io</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">It has been difficult to accurately model the physics of the interaction between a robot and the objects it manipulates, including contact mechanics, coupled contact dynamics, deformations, stiffness and friction.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Selective Growing Q-Networks (SGQN): An Analysis of Adaptive Action Grids in Decoupled Q-Learning</div>
+<div class="meta-line">Authors: Parham Nooranbakht, Seyed Mahdi Basiri Azad, Joschka Bödecker</div>
+<div class="meta-line">First: 2026-10-14T16:45:10+00:00 · Latest: 2026-10-14T16:45:10+00:00</div>
+<div class="meta-line">Comments: 19 pages, 6 figures, 6 tables. Under review at TMLR</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.20463v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.20463v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Value-based Q-learning for continuous control can discretise the action space, but the resolution of the discretisation trades early exploration against final precision. Growing Q-Networks (GQN) grow the resolution uniformly from coarse to fine. We introduce Selective Growing Q-Networks (SGQN), which keeps decoupled Q-learning and replaces uniform growth with an adaptive action grid: bins are added next to bins with high estimated Q-value, bins with low Q-value are pruned, and actions are chosen epsilon-greedily. On eight DeepMind Control Suite (DMControl) tasks with 2 to 12 action dimensions, SGQN has the highest mean final return among the compared methods on four, is within 1.1% of the best method on three more, and is 3.4% below Bang-Bang MPO on Walker Run, using on average 7.5 of 9 available bins per dimension. We then test whether the adaptive grid explains these results, and find that it does not. Growth activates every candidate bin and behaves like uniform growth, and removing pruning changes the return by at most 1.1%. Two other choices matter: starting from a coarse grid, since starting with all 9 bins produces collapsed seeds, and epsilon-greedy selection, since an annealed softmax lowers the return by 23% to 100%. SGQN is insensitive to its growth and pruning hyperparameters. It also differs from the GQN and DecQN baselines in other respects, notably one gradient update per environment step instead of one per eight, which we did not control for, so we do not attribute its advantage to a single component. We present SGQN as a competitive value-based method and as an analysis of which ingredients of a growing action grid matter.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Value-based Q-learning for continuous control can discretise the action space, but the resolution of the discretisation trades early exploration against final precision.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">MolHop: Scaffold-Hopping Molecular Design with Agentic Reinforcement Learning</div>
+<div class="meta-line">Authors: Yanyi Su, Chenyan Wang, Yulei Gong, Yeyun Chen, Xiaohui Yang, Jun Cheng</div>
+<div class="meta-line">Venue: ICLR 2027</div>
+<div class="meta-line">First: 2026-10-14T10:11:10+00:00 · Latest: 2026-10-14T10:11:10+00:00</div>
+<div class="meta-line">Comments: Under review at ICLR 2027</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.19920v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.19920v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Molecular design is often formulated as an optimization problem over existing molecular spaces. However, molecular optimization and the discovery of structurally distinct replacement molecules represent two fundamentally different search problems. LLM-based molecular design agents typically perform the former, conducting local refinement within the neighborhood of existing structures to improve target properties through structural modifications. In contrast, the latter requires exploration of a broader chemical space to discover molecules with entirely different scaffolds while preserving the functional characteristics of reference molecules. We propose MolHop, an agentic framework for cross-scaffold molecular discovery that enables models to navigate and edit within a pre-organized chemical space. MolHop organizes approximately 1.6 million molecular scaffolds from commercial molecules into a coarse-to-fine hierarchical action space. The agent selects new exploration regions through scaffold navigation actions and adjusts candidate properties through molecular editing. The framework maintains historical trajectory memory to support long-horizon search processes. On drug molecule and commercial compound tasks, connecting Grok-4.6 and DeepSeek-Flash-V4.1 to the MolHop framework substantially improves their cross-scaffold joint success rates. We develop MolHop-9B through agentic reinforcement learning, and MolHop-9B outperforms generative baselines including GPT-5.6-sol, Claude-5-Opus, and Gemini-3.1-Pro, while generating candidate molecules with larger scaffold differences from the reference molecules. These results demonstrate that effective molecular discovery beyond the traditional optimization paradigm requires structured chemical and action spaces, enabling agents to explore new structural regions rather than merely refine existing molecules.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Molecular design is often formulated as an optimization problem over existing molecular spaces.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Tracking large chemical reaction networks and rare events by neural networks</div>
+<div class="meta-line">Authors: Jiayu Weng, Xinyi Zhu, Jing Liu, Linyuan Lü, Pan Zhang, Ying Tang</div>
+<div class="meta-line">First: 2025-12-11T05:55:44+00:00 · Latest: 2026-10-14T09:28:20+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2512.10309v3">Abs</a> · <a href="https://arxiv.org/pdf/2512.10309v3">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Chemical reaction networks are widely used to model stochastic dynamics in biophysical processes. Their exact probabilistic description via the chemical master equation becomes intractable for high-dimensional systems due to the exponential growth of the state space. This difficulty is further exacerbated when metastable transitions and rare events dominate the dynamics. Here, we present an advanced neural-network approach that effectively tackles large reaction networks and rare-event dynamics within a unified framework. Building on autoregressive representations of the full joint probability distribution, we achieve efficient training through second-order optimization methods, including natural gradient descent and the time-dependent variational principle. We leverage enhanced-sampling strategies that enable accurate resolution of low-probability regions governing rare transitions. We demonstrate the method on a multistable genetic toggle switch and a mitogen-activated protein kinase (MAPK) cascade consisting of 16 species and 35 reactions with dense coupling. We further quantify rare events in spatially extended Schlögl models in both one- and two-dimensional lattices, reaching system sizes with extremely large state spaces up to $3\times10^{15}$. These results highlight the potential of neural modeling as a flexible and scalable framework for studying high-dimensional chemical reaction networks and rare events.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Chemical reaction networks are widely used to model stochastic dynamics in biophysical processes.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Can We Change &quot;Stroke Size&quot; to Simplify Regression Learning?</div>
+<div class="meta-line">Authors: Yunwei Bai, Ying Kiat Tan, Tsuhan Chen</div>
+<div class="meta-line">First: 2026-03-25T06:03:14+00:00 · Latest: 2026-10-14T01:18:56+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2603.26783v5">Abs</a> · <a href="https://arxiv.org/pdf/2603.26783v5">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a> · <a href="https://wendybaiyunwei.github.io/MultiStroke-Web/">Project1</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Deep-learning-based image generation is increasingly useful but expensive. Across the different timesteps in the denoising chain, high-noise timesteps present distinct optimization and prediction challenges, which can increase the cost of real-world applications. Inspired by the varying stroke sizes used in human painting, in this work, we ask whether a similar stroke-size variation (i.e., rough stroke applied early) in diffusion can simplify existing image-generation algorithms. We subsequently develop the MultiStroke operator, which linearly interpolates coarse and fine strokes in a coarse-to-fine manner to potentially simplify the prediction target, especially at high-noise timesteps. Across DDPM and flow-matching models trained from scratch, MultiStroke achieves an FID reduction of up to $70.2\%$. A quick video is at https://wendybaiyunwei.github.io/MultiStroke-Web/.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Deep-learning-based image generation is increasingly useful but expensive.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">A finite-element-inspired bipartite graph learned simulator for manufacturability assessment in large-deformation sheet forming</div>
+<div class="meta-line">Authors: Yingxue Zhao, Haoran Li, Haosu Zhou, Tobias Pfaff, Nan Li</div>
+<div class="meta-line">First: 2026-05-14T17:12:44+00:00 · Latest: 2026-10-13T23:27:46+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2605.22845v3">Abs</a> · <a href="https://arxiv.org/pdf/2605.22845v3">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Explicit dynamic finite element (FE) simulations are widely used for large-deformation analysis but remain expensive for design-space exploration. In explicit FE analysis, nodal kinematics and element-level deformation measures evolve through a coupled node-element update process. An FE-inspired learned simulator can preserve this structure and learn nodal kinematics and elemental deformation on their native domains. Nodal displacement describes geometry evolution, while elemental thinning identifies local deformation and critical regions. Feeding both outputs back during rollout allows each field to inform subsequent updates of the other. This work proposes CAtt-BiGNN, a cross-attention-based bipartite graph neural network for coupled nodal-elemental learning. The bipartite graph encodes FE-guided state organisation and information flow without imposing equilibrium or constitutive constraints. Mesh nodes and elements are represented as distinct graph entities connected by directed node-element edges, enabling prediction of nodal displacement increments and elemental deformation on their native domains. An edge-aware cross-attention processor dynamically updates edge representations and weights messages using the receiving state and evolving local relations. For larger graphs, CAtt-BiUGNN uses separate nodal and elemental downsampling and upsampling to enhance long-range propagation while preserving their interaction across graph levels. The method is evaluated on dome-shaped cold-forming and corner-shaped hot-forming benchmarks. Comparisons with node-centred baselines, an FE-inspired hypergraph model, a Physics-Attention-based neural operator, a graph Transformer, and attention ablations show improved joint accuracy in nodal displacement and elemental thinning prediction during autoregressive rollout.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Explicit dynamic finite element (FE) simulations are widely used for large-deformation analysis but remain expensive for design-space exploration.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">MonoMIP: Multi-Height Inverse Perspective Mapping for Monocular 3D Object Detection</div>
+<div class="meta-line">Authors: Emir Ulurak, Furkan Kıraç</div>
+<div class="meta-line">First: 2026-10-13T19:06:51+00:00 · Latest: 2026-10-13T19:06:51+00:00</div>
+<div class="meta-line">Comments: Accepted to ACCV 2026. 18 pages main paper and 14 pages supplementary material</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.19071v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.19071v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Monocular 3D object detection methods increasingly rely on depth-guided transformers, but they operate entirely in the perspective image plane where spatial relationships are distorted by foreshortening. We propose MonoMIP, a dual-decoder framework that adds complementary 3D geometric reasoning through Bird&#x27;s-Eye View (BEV) features constructed via Multi-Height Inverse Perspective Mapping. We perform IPM at K elevation planes spanning ground to rooftop, producing an ordered stack of height-conditioned metric BEV features that reduces above-ground misprojection and exposes depth-dependent appearance variation across planes. A BEV decoder with multi-scale deformable attention aggregates this multi-height evidence per query, while a depth-guided 3D decoder provides complementary perspective-space predictions. Without extra training data, MonoMIP attains 25.84% Moderate AP3D|R40 on KITTI val and 21.66% on the official test set for Car, outperforming recent published monocular methods on both the KITTI and Waymo benchmarks.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Monocular 3D object detection methods increasingly rely on depth-guided transformers, but they operate entirely in the perspective image plane where spatial relationships are distorted by foreshortening.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Registration is a Representation Problem: Solving Whole-Body PET/CT Registration</div>
+<div class="meta-line">Authors: Neel Dey, Adrian V. Dalca</div>
+<div class="meta-line">Venue: MICCAI</div>
+<div class="meta-line">First: 2026-10-13T17:45:34+00:00 · Latest: 2026-10-13T17:45:34+00:00</div>
+<div class="meta-line">Comments: Technical report. First place winning solution for the MICCAI Learn2Reg 2026 PSMAReg challenge. Code and volumetric visualizations are available at www.neeldey.com/reps-for-reg . Keywords: representation learning, medical image registration</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.18804v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.18804v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Raw image intensities are a poor surrogate for similarity across images in correspondence problems. Further, while auxiliary segmentation labels can provide semantic identification and improve matching, they can assign only coarse identities to fine-grained anatomy and often cover only a subset of structures, particularly in whole-body settings. We present an approach that instead establishes correspondence using complementary representations of anatomy and demonstrate its utility for longitudinal whole-body PET/CT registration in the Learn2Reg 2026 PSMAReg Challenge. Our 3D foundation model, anatomix, is used to derive fine-grained, per-voxel semantic representations that are consistent across volumes, and we further employ off-the-shelf segmentation models to obtain coarse anatomical identities. Together, these representations drive a GPU-accelerated iterative registration solver (FireANTs) in a hybrid multistage framework: the first stage estimates alignment from dense multi-channel features, after which a second refines the deformation using both anatomix- and segmentation-based losses. Lastly, because registration should not introduce non-biological tumor volume changes across time, we develop lesion-specific component-wise volume preservation schemes. Without any task-specific training, our system won first place in the PSMAReg Challenge leaderboard. Code and interactive visualizations are available at http://www.neeldey.com/reps-for-reg.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Raw image intensities are a poor surrogate for similarity across images in correspondence problems.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">RadarGSOcc: Doppler-Aware 3D Semantic Occupancy Prediction Using 4D Radar Tensor with Geometric-Semantic Feature Extraction</div>
+<div class="meta-line">Authors: Christofel Rio Goenawan, Dong-Hee Paek, Seung-Hyun Kong</div>
+<div class="meta-line">First: 2026-10-13T16:40:59+00:00 · Latest: 2026-10-13T16:40:59+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.18686v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.18686v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">3D semantic occupancy prediction is crucial for autonomous driving, but camera-based methods degrade in low-light conditions and LiDAR-based methods are sensitive to adverse weather. 4D radar is more robust, yet its sparsity and the high cost of radar tensor processing limit its use. We propose Radar Geometric-Semantic Occupancy Prediction (RadarGSOcc), an efficient framework that directly processes 4D radar tensors by separately extracting geometric and semantic features, including Doppler information, with a deformable attention-based geometric refinement module as its key component. We also introduce the K-Radar 3DSemOcc benchmark, the first large-scale benchmark for 3D semantic occupancy prediction using 4D radar tensors, built on the K-Radar dataset with refined LiDAR-based annotations. RadarGSOcc predicts 15 classes within a 51.2m range and achieves 38.2% IoU, 7.6% mIoU, and 25.5% weighted mIoU, outperforming RadarOcc by 17% relative (25.5 vs. 21.9) in weighted mIoU while using fewer parameters and lower computation. It substantially improves truck prediction while trading off car accuracy, outperforms camera-based approaches, and narrows the gap with LiDAR-based methods. To assess robustness without per-frame ground truth in adverse weather, we further propose a novel proxy metric, Environment-Based KL Divergence (EBKL), under which 4D radar proves a reliable and efficient modality for 3D semantic occupancy prediction. The dataset and code will be publicly available.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">3D semantic occupancy prediction is crucial for autonomous driving, but camera-based methods degrade in low-light conditions and LiDAR-based methods are sensitive to adverse weather.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">ProAS: A Progress-Aware Advantage Shaping Framework for Multi-Turn Agentic Reinforcement Learning</div>
+<div class="meta-line">Authors: Bowen Ding, Mingda Wan, Yuhan Chen, Jiyao Yuan, Qi Zhu, Futing Wang, Heyuan Deng, Fei Mi, Lifeng Shang, Tao Lin</div>
+<div class="meta-line">First: 2026-10-13T16:39:38+00:00 · Latest: 2026-10-13T16:39:38+00:00</div>
+<div class="meta-line">Comments: 23 pages, 2 figures</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.18683v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.18683v1">PDF</a> · <a href="https://github.com/LINs-lab/ProAS">Code1</a> · <a href="https://huggingface.co/huggingface">Code2</a> · <a href="https://huggingface.co/docs/hub/spaces">Code3</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Reinforcement learning (RL) has emerged as the primary paradigm for optimizing Large Language Model (LLM) agents, yet efficient critic-free algorithms (e.g., GRPO) suffer from a fundamental uniform credit assignment dilemma that broadcasts trajectory-level advantages equally to all actions. Our analysis reveals that this uniformity inherently reinforces structurally invalid actions in preferred trajectories and ignores the downstream cascading influence of early pivotal deviations in unpreferred ones. To resolve this without introducing critic overhead, we propose Progress-Aware Advantage Shaping (ProAS), a plug-and-play framework that leverages a dynamically evolving Agentic Reference Graph (ARG) to achieve fine-grained credit assignment via Masking Unreasonable Incentives (MUI) and Asymmetric Penalty Redistribution (APR). Extensive experiments across Qwen2.5-1.5B-Instruct and Qwen2.5-7B-Instruct demonstrate that ProAS universally elevates mainstream group-based baselines to new state-of-the-art performance, achieving peak success rates of 91.9\% and 94.3\% on ALFWorld, alongside 66.7\% and 70.8\% on WebShop, respectively. Furthermore, it accelerates training convergence by up to $2.44\times$ while maintaining strong robustness against imperfect or distilled ARGs. Codes: https://github.com/LINs-lab/ProAS.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Reinforcement learning (RL) has emerged as the primary paradigm for optimizing Large Language Model (LLM) agents, yet efficient critic-free algorithms (e.g., GRPO) suffer from a fundamental uniform credit assignment dilemma that broadcasts trajectory-level advantages equally to all actions.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">PlanPath: Exploration-Guided Orchestration for Patient-Level Pathology Reasoning</div>
+<div class="meta-line">Authors: Jiusong Ge, Mingzhao He, Qidong Liu, Chunbao Wang, Chunze Yang, Di Zhang, Jiashuai Liu, Mireia Crispin-Ortuzar, Huazhu Fu, Chen Li, Zeyu Gao</div>
+<div class="meta-line">First: 2026-10-13T16:25:58+00:00 · Latest: 2026-10-13T16:25:58+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.18664v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.18664v1">PDF</a> · <a href="https://github.com/JSGe-AI/PlanPath_1">Code1</a> · <a href="https://huggingface.co/huggingface">Code2</a> · <a href="https://huggingface.co/docs/hub/spaces">Code3</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">A patient&#x27;s pathology case spans tens of slides from distinct specimens and anatomical sites, each carrying non-redundant, site-specific evidence. Forming a patient-level conclusion therefore requires locating the slides relevant to a given question and integrating complementary findings across them. However, existing pathology agents analyze one slide at a time and describe morphology rather than measure it, leaving evidence acquisition across a patient&#x27;s specimens and patient-level quantification underexplored. To address this gap, we propose PlanPath, an agentic framework for patient-level pathology visual question answering (VQA). PlanPath turns the question into an exploration plan that specifies the evidence required, routes to the slides likely to carry it, and drives coarse-to-fine acquisition from tissue architecture down to individual cells. Tissue- and cell-level tools supply the counts, proportions, and extents, which PlanPath aggregates across slides into a traceable answer. To enable evaluation, we build two patient-level VQA datasets for renal and gastric cancer, averaging 15 WSIs per patient, with pathologist-verified question-answer pairs derived from diagnostic reports. Experimental results show that PlanPath outperforms the strongest baseline by 9.4% and 12.1% in overall accuracy on the two datasets and further improves existing slide-level agents when plugged into our framework. The dataset and code are available at: https://github.com/JSGe-AI/PlanPath_1.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">A patient&#x27;s pathology case spans tens of slides from distinct specimens and anatomical sites, each carrying non-redundant, site-specific evidence.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">End-to-End Spoken Grammatical Error Correction</div>
+<div class="meta-line">Authors: Mengjie Qian, Rao Ma, Stefano Bannò, Mark J. F. Gales, Kate M. Knill</div>
+<div class="meta-line">First: 2025-06-23T11:40:04+00:00 · Latest: 2026-10-13T16:12:12+00:00</div>
+<div class="meta-line">Comments: Accepted for publication in Speech Communication</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2506.18532v2">Abs</a> · <a href="https://arxiv.org/pdf/2506.18532v2">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Grammatical Error Correction (GEC) and feedback play a vital role in supporting second language (L2) learners, educators, and examiners. While written GEC is well-established, spoken GEC (SGEC), aiming to provide feedback based on learners&#x27; speech, poses additional challenges due to disfluencies, transcription errors, and the lack of structured input. SGEC systems typically follow a cascaded pipeline consisting of Automatic Speech Recognition (ASR), disfluency detection, and GEC, making them vulnerable to error propagation across modules. This work examines an End-to-End (E2E) framework for SGEC and feedback generation, highlighting challenges and possible solutions when developing these systems. Cascaded, partial-cascaded and E2E architectures are compared, all built on the Whisper foundation model. A challenge for E2E systems is the scarcity of GEC labeled spoken data. To address this, an automatic pseudo-labeling framework is examined, increasing the training data from 77 to over 2500 hours. To improve the accuracy of the SGEC system, additional contextual information, exploiting the ASR output, is investigated. Candidate feedback of their mistakes is an essential step to improving performance. In E2E systems the SGEC output must be compared with an estimate of the fluent transcription to obtain the feedback. To improve the precision of this feedback, a novel reference alignment process is proposed that aims to remove hypothesised edits that results from fluent transcription errors. Finally, these approaches are combined with an edit confidence estimation approach, to exclude low-confidence edits. Experiments on the in-house Linguaskill (LNG) corpora and the publicly available Speak &amp; Improve (S&amp;I) corpus show that the proposed approaches significantly boost E2E SGEC performance.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Grammatical Error Correction (GEC) and feedback play a vital role in supporting second language (L2) learners, educators, and examiners.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Forecasting Without Full Identification: Reliability and Computational Cost in Clot-Growth Simulation</div>
+<div class="meta-line">Authors: Lennon J. Shikhman, Lily DiPaulo, Ying Qian, He Li</div>
+<div class="meta-line">First: 2026-08-08T14:47:28+00:00 · Latest: 2026-10-13T15:17:14+00:00</div>
+<div class="meta-line">Comments: 53 pages, 8 figures</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2608.08165v2">Abs</a> · <a href="https://arxiv.org/pdf/2608.08165v2">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">We forecast clot growth from sparse early measurements with incomplete biochemical information. Using 1,000 simulated trajectories, we compare inverse search, which weights candidate inputs by their agreement with early observations, with a direct multilayer perceptron (MLP) predicting future clot size. Inverse search is more accurate when tissue factor alone, or tissue factor and fibrinogen, are unknown. When all five inputs are unknown, direct prediction achieves 2.16% pooled relative $L_2$ forecast error, outperforming search with 8,192 candidates using a forward MLP (3.25%) or latent neural ordinary differential equation model (3.36%). A conditional error bound separates candidate disagreement, weight on poor early fits, surrogate error, and candidate coverage. Increasing randomized quasi-Monte Carlo candidate budgets from 512 to 32,768 reduces numerical variation. A covariance score ranks additional assays by expected forecast value while accounting for measurement noise. At 10% range-scaled assay noise, incorporating assay uncertainty reduces forecast error from about 5% to below 3% for both surrogates. An independent reaction cascade verifies candidate integration against tensor quadrature, with mean normalized forecast-integration error below $10^{-5}$ at 32,768 candidates. These results demonstrate accurate clot-growth forecasting without full biochemical identification and support selecting prediction strategies and additional measurements according to accuracy, reliability, and computational cost.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">We forecast clot growth from sparse early measurements with incomplete biochemical information.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">EmoGenie: Benchmarking and Evaluating Expressed and Evoked Emotion in T2I Generation with MLLMs</div>
+<div class="meta-line">Authors: Zixuan Xing, Lancheng Gao, Shengyan Li, Huiyu Duan, Zhaolin Cai, Guangtao Zhai, Xiongkuo Min</div>
+<div class="meta-line">First: 2026-10-13T14:23:07+00:00 · Latest: 2026-10-13T14:23:07+00:00</div>
+<div class="meta-line">Comments: Comments: Corresponding author: Xiongkuo Min. Equal contribution: Zixuan Xing and Lancheng Gao</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.18455v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.18455v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Rapid advances in artificial intelligence-generated content (AIGC) have significantly promoted using text-to-image (T2I) models to generate images with specific affective intentions. However, the emotional effects conveyed by generated images frequently deviate from target expectations, and it remains unclear whether multimodal large language models (MLLMs) can reliably interpret the emotion of AI-generated visual content. Existing affective benchmarks are predominantly built on natural images, while affective studies of generated images have largely focused on emotions expressed in portraits, lacking a unified benchmark for studying the emotions expressed and evoked by generated images. We therefore introduce EmoGenie, a benchmark of emotion for AI-generated images that evaluates capabilities in T2I generation and MLLM understanding across expressed and evoked emotions. It comprises 6,400 images generated by eight T2I models using 800 emotion-targeted prompts, annotated with question-answer (QA) pairs, termed EmoGenie-QA, and continuous human ratings, termed EmoGenie-Assess. EmoGenie-QA contains 90,000 closed-set questions in single-image and image-pair settings, as well as 1,057 open-ended questions for emotion description. EmoGenie-Assess benchmarks continuous affective and aesthetic prediction using 13,175 mean opinion scores (MOSs) aggregated from human ratings in terms of valence, arousal, dominance, and aesthetic quality. We further develop EmoProbe, which combines emotion question answering with response-aligned, dimension-specific regression heads for continuous score prediction. Experimental results show that EmoProbe achieves superior results on emotion-related QA tasks, while its affective and aesthetic predictions correlate better with human ratings, demonstrating its state-of-the-art capabilities of unified coarse-to-fine affective understanding for AI-generated images.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Rapid advances in artificial intelligence-generated content (AIGC) have significantly promoted using text-to-image (T2I) models to generate images with specific affective intentions.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">UEPS: Robust and Efficient MRI Reconstruction</div>
+<div class="meta-line">Authors: Xiang Zhou, Hong Shang, Zijian Zhan, Tianyu He, Jintao Meng, Dong Liang</div>
+<div class="meta-line">First: 2026-03-19T07:33:23+00:00 · Latest: 2026-10-13T12:40:24+00:00</div>
+<div class="meta-line">Comments: The document contains the main paper and additional experimental details in the supplementary material. Open-source code can be found at: https://github.com/HongShangGroup/UEPS</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2603.18572v2">Abs</a> · <a href="https://arxiv.org/pdf/2603.18572v2">PDF</a> · <a href="https://github.com/HongShangGroup/UEPS">Code1</a> · <a href="https://huggingface.co/huggingface">Code2</a> · <a href="https://huggingface.co/docs/hub/spaces">Code3</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Deep unrolled models (DUM) have become the state-of-the-art for accelerated MRI reconstruction, yet their robustness under domain shift remains a critical barrier to clinical adoption. In this work, we identify coil sensitivity map (CSM) estimation as the primary bottleneck limiting generalization. To address this, we propose UEPS, a novel DUM architecture featuring three key designs: (i) an Unrolled Expanded (UE) design that eliminates CSM dependency by reconstructing each coil independently; (ii) progressive resolution, which leverages k-space-to-image mapping for efficient coarse-to-fine refinement; and (iii) sparse attention tailored to MRI&#x27;s 1D undersampling nature. These physics-grounded designs enable gains in robustness and computational efficiency. We construct a large-scale zero-shot transfer benchmark comprising 10 out-of-distribution (OOD) test sets spanning diverse clinical shifts, anatomy, view, contrast, vendor, field strength, and coil configurations. Extensive experiments demonstrate that UEPS consistently and substantially outperforms existing DUM, end-to-end, diffusion, and untrained methods across all OOD tests, achieving state-of-the-art robustness with low-latency inference suitable for real-time deployment.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Deep unrolled models (DUM) have become the state-of-the-art for accelerated MRI reconstruction, yet their robustness under domain shift remains a critical barrier to clinical adoption.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">PUGS: Physics-Guided Uncertainty Modeling for Underwater Dynamic 3D Gaussian Splatting</div>
+<div class="meta-line">Authors: Tingjun Li, Yuxi Wang, Guoqiang Zhong, Zhaoxiang Zhang</div>
+<div class="meta-line">First: 2026-10-13T08:21:10+00:00 · Latest: 2026-10-13T08:21:10+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.17936v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.17936v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Dynamic 3D Gaussian Splatting (3DGS) provides an efficient framework for dynamic scene reconstruction. Most existing approaches model scene dynamics with deterministic deformation fields, assuming each Gaussian follows a distinct geometric trajectory over time. This assumption breaks down underwater, where light scattering, refraction, marine snow and low visibility create substantial physical ambiguity in captured images. We present PUGS, a physics-guided uncertainty model for underwater dynamic 3DGS. PUGS learns inherent uncertainty induced by underwater image formation and leverages it as a physical signal for dynamic scene modeling. Rather than estimating a single deterministic displacement, it parameterizes each Gaussian&#x27;s motion as a probability distribution with expected deformation and physical uncertainty. We adopt stochastic deformation optimization to sample Gaussian trajectories via local reparameterization, exploring multiple physically plausible solutions during training. We further propose uncertainty stochastic annealing and a dual-path self-consistency distillation objective, converting stochastic exploration to deterministic reconstruction while preserving temporal coherence. Extensive experiments on underwater dynamic datasets and physics-aware benchmarks demonstrate superior rendering quality, temporal consistency and reconstruction robustness. Our method achieves 1.16 dB PSNR gain over the strongest baseline on UVEB and 3.99 dB on DRUVA.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Dynamic 3D Gaussian Splatting (3DGS) provides an efficient framework for dynamic scene reconstruction.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">HierarchiRetina: A Diabetic Retinopathy Screening and Grading Cascade with Heterogeneous Mixture-of-Experts Lesion Segmentation</div>
+<div class="meta-line">Authors: Md Asif Uddin, Niloy Farhan, Rafeed Rahman, Md. Golam Rabiul Alam</div>
+<div class="meta-line">First: 2026-10-13T08:19:28+00:00 · Latest: 2026-10-13T08:19:28+00:00</div>
+<div class="meta-line">Comments: 8 pages, 8 figures, 8 tables. Submitted to the IEEE Journal of Biomedical and Health Informatics. Code, trained weights and per-image predictions: https://github.com/asifuddin01/HierarchiRetina</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.17933v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.17933v1">PDF</a> · <a href="https://github.com/asifuddin01/HierarchiRetina">Code1</a> · <a href="https://huggingface.co/huggingface">Code2</a> · <a href="https://huggingface.co/docs/hub/spaces">Code3</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Clinical screening for diabetic retinopathy proceeds in stages, yet most automated systems grade fundus images with a single black-box network. Three gaps remain: (i) lesions differ widely in size and contrast, but segmenters typically apply the same blocks to all; (ii) ungradable images are usually excluded or treated as an extra class, and lesion-aware graders seldom test whether lesions drive the grade; (iii) staged systems often report each stage only on the images reaching it, leaving propagated errors unmeasured. HierarchiRetina, a screening, segmentation and grading cascade with inspectable stage outputs, addresses each gap. First, HSMoE-AUNet is a U-Net whose skip, bottleneck and decoder blocks are sparse mixtures of heterogeneous experts, with lesion-matched types, counts and losses; SwinHRUNetPP, a dual-encoder vessel segmenter, uses a field-of-view-restricted loss. Second, LG-DRG separates gradability from ordinal severity and lets lesion masks query the image through gated cross-attention. Third, an end-to-end evaluation counts screening misses as errors and traces each error to its stage. Pooled Dice ranged from 0.184 (microaneurysms) to 0.579 (exudates); vessel Dice was 0.731. On 58,689 held-out images from six datasets, end-to-end quadratic weighted kappa was 0.804, with referral sensitivity 0.832 at specificity 0.947, and the screening gate caused 66% of errors. In ablations, the grade ignored the masks, even with the cross-attention gate started open. On all 4,105 official DDR test images, six-class accuracy was 85.6%, above the best published six-class result we found (83.8%). Staged screening systems should be evaluated end-to-end, with stage attribution and mask ablation, before clinical deployment.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Clinical screening for diabetic retinopathy proceeds in stages, yet most automated systems grade fundus images with a single black-box network.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">2D Spatial Reasoning with Adaptive Neural Cellular Automata</div>
+<div class="meta-line">Authors: Martin Spitznagel, Janis Keuper</div>
+<div class="meta-line">First: 2026-10-06T15:18:24+00:00 · Latest: 2026-10-13T07:30:26+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.08518v2">Abs</a> · <a href="https://arxiv.org/pdf/2610.08518v2">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Many modern learning approaches are still struggling with spatial reasoning tasks, i.e. they lack the ability to utilize geometric information of perceived entities and their spatial relation to each other to solve problems. We introduce a novel Adaptive Neural Cellular Automata (aNCA) architecture which uses deformable convolutions to dynamically adapt the perceptive field and iteratively reason over 2D spatial relations on grid-like data structures (e.g. images). Empirical results on public benchmarks show state of the art comprehensible results with high generalization abilities for solving image based puzzles like Sudoku or finding the shortest path in a maze.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Many modern learning approaches are still struggling with spatial reasoning tasks, i.e.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Re-uploading quantum data: a universal function approximator for quantum inputs</div>
+<div class="meta-line">Authors: Hyunho Cha, Daniel K. Park, Jungwoo Lee</div>
+<div class="meta-line">First: 2025-09-23T01:50:37+00:00 · Latest: 2026-10-13T06:28:43+00:00</div>
+<div class="meta-line">Comments: 29 pages, 11 figures</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2509.18530v7">Abs</a> · <a href="https://arxiv.org/pdf/2509.18530v7">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Quantum data re-uploading has proved powerful for classical inputs, where repeatedly encoding features into a small circuit yields universal function approximation. Extending this idea to quantum inputs remains underexplored, as the information contained in a quantum state is not directly accessible in classical form. We propose and analyze a quantum data re-uploading architecture in which a qubit interacts sequentially with fresh copies of an arbitrary input state. The circuit can approximate any bounded continuous function using only one ancilla qubit and single-qubit measurements, provided that sufficiently many copies of the input state and, in general, sufficiently many layers are available. By alternating entangling unitaries with mid-circuit resets of the input register, the architecture realizes a discrete cascade of completely positive and trace-preserving maps, analogous to collision models in open quantum system dynamics. Our framework provides a space-efficient and expressive approach to designing quantum machine learning models that operate directly on quantum data.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Quantum data re-uploading has proved powerful for classical inputs, where repeatedly encoding features into a small circuit yields universal function approximation.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Personalising Deformable Image Registration with Clinical Context and Deformation History for Adaptive Radiotherapy</div>
+<div class="meta-line">Authors: Caiwen Jiang, Songlin Zhao, Yuzhen Ding, Jia Mi, Samir H. Patel, Alexandra Bennett, Keldon K. Lin, Terence T. Sio, Jonathan B. Ashman, Lisa A. McGee, Jean-Claude M. Rwigema, William G. Rule, Sameer R. Keole, Sujay A. Vora, William W. Wong, Nathan Y. Yu, Michele Y. Halyard, Steven E. Schild, Safia K. Ahmed, Daniel J. Ma, Robert L. Foote, Michelle A. Neben Wittich, Thomas J. Whitaker, Haibo Lin, Dinggang Shen, Wei Liu</div>
+<div class="meta-line">First: 2026-10-13T06:02:57+00:00 · Latest: 2026-10-13T06:02:57+00:00</div>
+<div class="meta-line">Comments: 27 pages, 7 figures and 6 tables. The submission includes Supplementary Information</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.18926v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.18926v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Adaptive radiotherapy must account for anatomical changes during treatment, but doing so depends on reliably mapping targets, organs at risk and dose across serial images. Existing registration methods treat each image pair independently, without using radiotherapy-specific context or the patient&#x27;s preceding anatomical trajectory. We developed Clinical-context-Aware and Patient-adaptive Deformable Image Registration (CAP-DIR), integrating source contours, dose, clinical text and prior-registration features. We evaluated 16,361 CT examinations from 3,473 patients across four institutional cohorts and five public benchmarks. CAP-DIR increased internal-test organ-at-risk-region normalized cross-correlation from 84.76% to 96.92% relative to the strongest learning-based comparator, with low deformation folding, and remained superior across seven external cohorts. In a blinded review of 20 longitudinal cases, clinically acceptable contours increased from 45.0% to 82.5% for clinical target volumes and from 22.5% to 62.5% for organs at risk, while estimated editing time decreased. In a controlled benchmark, CAP-DIR reduced global dose-mapping error by 34.5% relative to the strongest comparator. These findings show that clinically informed, longitudinal registration can improve contour usability and dose mapping for adaptive radiotherapy.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Adaptive radiotherapy must account for anatomical changes during treatment, but doing so depends on reliably mapping targets, organs at risk and dose across serial images.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">SeRV: Semantic-Aligned Residual Vector Quantization for American Sign Language Generation</div>
+<div class="meta-line">Authors: Hongyu Wu, Xu Wu, Tianhao Wu, Jiawei Yu, Phuc Nguyen, Jian Liu, Yi Wu</div>
+<div class="meta-line">First: 2026-09-04T21:41:17+00:00 · Latest: 2026-10-13T05:39:27+00:00</div>
+<div class="meta-line">Comments: 18 pages; revised manuscript with updated experiments and additional analyses</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2609.05742v2">Abs</a> · <a href="https://arxiv.org/pdf/2609.05742v2">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a> · <a href="https://signvideos.github.io/Demo/">Project1</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">American Sign Language (ASL) generation remains challenging due to limited paired text-ASL motion data and the difficulty of learning motion representations both precise for reconstruction and predictable from linguistic input. Existing methods rely on motion tokenizers optimized for reconstruction, without explicit semantic supervision from paired text. As a result, the learned tokens remain limited in supporting semantically consistent and fine-grained ASL motion generation. To address this limitation, we propose SeRV (Semantic-Aligned Residual Vector Quantization), a semantic-aligned RVQ tokenizer for ASL generation. SeRV learns a semantically structured residual token space by combining global-level motion-text alignment with token-level text-conditioned supervision. Building on this tokenizer, a Hierarchical GPT predicts residual motion tokens in a coarse-to-fine manner, generating structurally coherent and semantically aligned 3D ASL motion. We further construct a large-scale reconstructed 3D ASL motion-text benchmark by recovering paired 3D motion from OpenASL videos. Experiments on How2Sign and OpenASL show that SeRV outperforms six state-of-the-art baselines, with user studies assessing reconstruction quality and semantic fidelity. Samples of our reconstructed 3D ASL motion are available on our project page: https://signvideos.github.io/Demo/.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">American Sign Language (ASL) generation remains challenging due to limited paired text-ASL motion data and the difficulty of learning motion representations both precise for reconstruction and predictable from linguistic input.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">AttenIR: Aligning Dense Visual Attention with Mesh Warping for Unsupervised Image Retargeting</div>
+<div class="meta-line">Authors: Yun Zhang, Zhiruo Zhang, Lifei Zhu, Zhe Zhu, Tong Li, Fang-Lue Zhang, Shengjuan Liu, Xinyuan Zheng</div>
+<div class="meta-line">First: 2026-10-13T05:20:45+00:00 · Latest: 2026-10-13T05:20:45+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.17743v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.17743v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Image retargeting aims to resize images while preserving salient content free from distortion and stretching. Recent learning-based solutions reduce reliance on traditional hand-crafted features and optimization procedures, leading to more efficient and generalizable performance. Nevertheless, existing approaches still struggle to preserve global structure and content fidelity. To address these limitations, we propose AttenIR, an unsupervised image retargeting framework requiring no manual labels, based on content-aware mesh warping, which ef- fectively couples dense visual attention with sparse mesh constraints. We for- mulate the mesh deformation as a vertex displacement regression task. Guided by saliency priors, our method jointly optimizes scale, structure, and geometry preservation losses. By combining dense visual attention with semantic features, it achieves robust, unsupervised retargeting without manual annotations. Our primary contributions include (1) a lightweight unsupervised method for image retargeting that ensures content fidelity and preserves global structure, and (2) a coarse-to-fine projection strategy to align dense visual attention priors with sparse mesh constraints, enabling content-aware deformation at the pixel level. Experiments demonstrate that our method achieves competitive and superior performance compared with both traditional and state-of-the-art learning-based methods.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Image retargeting aims to resize images while preserving salient content free from distortion and stretching.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Hierarchical Curriculum Learning for Surgical Video Generation: Focusing on Bilateral Axillo-Breast Approach Robotic Thyroidectomy Datasets</div>
+<div class="meta-line">Authors: Youngbin Kong, Seungho Lee, Jae Kyung Shin, Jong-hyuk Ahn, Hyoun-Joong Kong, Kyu Eun Lee</div>
+<div class="meta-line">First: 2026-10-13T04:07:21+00:00 · Latest: 2026-10-13T04:07:21+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.17684v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.17684v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">High-fidelity surgical video generation is increasingly important for surgical education, simulation, and downstream AI training, as conventional simulation pipelines are limited by cost, realism, and scenario diversity. Adapting generic text-to-video diffusion models to surgical procedures remains difficult, however, due to complex anatomical structures, intricate tool-tissue interactions, the inherently hierarchical nature of surgical workflows, and the scarcity of curated training data outside a few well-studied procedures. We propose a surgical video generation framework that combines hierarchical procedural annotation with curriculum transfer learning. Surgical procedures are decomposed into three levels (phase, task, and action) and a pretrained text-to-video diffusion model is progressively adapted from coarse to fine-grained surgical context, supported by a dynamic sampling strategy that handles variable-resolution and variable-length surgical clips. We instantiate the framework on Bilateral Axillo-Breast Approach robotic thyroidectomy, a procedure for which no curated benchmark currently exists. Relative to the preceding task-level model, the final action-level model reduces FVD by 20.1% and FID by 15.7%, and a matched-budget ablation indicates that these gains arise from the curriculum design rather than from additional training. A user study with six clinicians rates visual realism highly while highlighting remaining gaps in anatomical accuracy and clinical reliability. The proposed framework offers a step toward AI-driven surgical simulation in procedures where curated data are scarce.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">High-fidelity surgical video generation is increasingly important for surgical education, simulation, and downstream AI training, as conventional simulation pipelines are limited by cost, realism, and scenario diversity.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Integrating 3D Posture Neutralization with Statistical Shape Modeling for Head-Neck-Shoulder Ergonomic Design</div>
+<div class="meta-line">Authors: Jinbo Luo, Hang Ren, Yadie Yang, Jie Zhang</div>
+<div class="meta-line">First: 2026-10-13T03:57:15+00:00 · Latest: 2026-10-13T03:57:15+00:00</div>
+<div class="meta-line">Comments: 16 pages, 15 figures, 1 table</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.17671v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.17671v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">The design of ergonomic products and workspaces requires a deep understanding of human anatomy and posture. In particular, the head-neck-shoulder region is critical for many applications such as cervical orthoses, helmets, and other head-worn or neck-worn devices. This paper presents a framework that integrates posture neutralization with statistical shape modeling (SSM) for the head-neck-shoulder (HNS) region. We acquire a single three-dimensional (3D) scan of the head-neck-shoulder region from each of 200 Chinese adults in a natural posture for each subject. Every scan is then posture-neutralized before SSM. We fit a parametric head-neck model to each scan to separate cervical pose from anatomy, and reset the cervical pose to a common neutral configuration, so that the resulting model captures anatomical shape variation rather than posture-induced deformation. The resulting shape space yields a standardized template and population-wide modes of variation, providing baselines for parametric ergonomic design. We further discuss how the model supports population coverage analysis and the design of products that accommodate anatomical diversity while maintaining neutral cervical posture.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">The design of ergonomic products and workspaces requires a deep understanding of human anatomy and posture.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Ultra Flash: Scaling Real-Time Streaming Video Generation to High Resolutions</div>
+<div class="meta-line">Authors: Xin Lu, Jie Huang, Zihao Fan, Xiaoxiao Ma, Jun-hao Zhuang, Yuming Li, Zeyue Xue, Siming Fu, Haoran Li, Mingchen Zhong, Guohui Zhang, Shichen Ma, Yijun Liu, Jiaqi Shi, Yanwen Ma, Yaofeng Su, Haoyu Wang, Yaowei Li, Songchun Zhang, Weiyang Jin, Yuxuan Bian, Shiyi Zhang, Haojun Xu, Shuai Lu, Xin Han, Wei Tang, Haoyang Huang, Nan Duan</div>
+<div class="meta-line">Venue: Advances in Neural Information Processing Systems 2026</div>
+<div class="meta-line">First: 2026-06-08T07:45:03+00:00 · Latest: 2026-10-13T03:00:15+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2606.09150v3">Abs</a> · <a href="https://arxiv.org/pdf/2606.09150v3">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a> · <a href="https://xin1u.github.io/UltraFlash/">Project1</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">While recent autoregressive video diffusion models achieve remarkable streaming quality, they remain confined to low resolutions (e.g., 480P), leaving efficient, scalable, real-time high-resolution video generation a fundamental open challenge. To bridge this gap, we present Ultra Flash, a cascaded streaming framework capable of real-time high-resolution video generation. Ultra Flash achieves ~30 FPS at 1K resolution and ~18 FPS at 2K resolution on a single GPU through three key contributions: (1) an architecture-preserving T2V-to-TV2V super-resolution training paradigm coupled with an AIGC-oriented data degradation pipeline that effectively preserves the generative capability of the base model, enabling enhanced high-resolution detail when cascaded after mainstream low-resolution generative models; (2) a causal streaming latent upsampler paired with a high-resolution decoder, which enhances spatiotemporal coherence while enabling efficient latent spatial scaling and precise high-resolution decoding with negligible computational overhead; and (3) a cascade high-resolution streaming video generation optimization scheme that first performs hybrid-reward-enhanced sparse causalization and single-step distillation of the super-resolution model, then introduces cascaded streaming self-forcing preference optimization with dynamic cache management, jointly enhancing overall coherence, improving quality, and enabling real-time high-resolution streaming video generation. Extensive experiments demonstrate that Ultra Flash reliably produces ultra-high-resolution streaming video while maintaining state-of-the-art visual quality and superior efficiency. Project Page: https://xin1u.github.io/UltraFlash/</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">While recent autoregressive video diffusion models achieve remarkable streaming quality, they remain confined to low resolutions (e.g., 480P), leaving efficient, scalable, real-time high-resolution video generation a fundamental open challenge.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">PLEDGE: Progressive Lossy Error-Bounded Compression of 3D Gaussian Splatting</div>
+<div class="meta-line">Authors: Mingze Xia, Yuxiao Li, Baixi Sun, Wenbo Li, Pu Jiao, Sheng Di, Franck Cappello, Hanqi Guo, Xin Liang</div>
+<div class="meta-line">First: 2026-10-13T02:25:08+00:00 · Latest: 2026-10-13T02:25:08+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.17605v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.17605v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Existing 3D Gaussian Splatting (3DGS) codecs report reconstruction quality after compression, and give users little control over the distortion of individual primitives. We present PLEDGE, a training-free, progressive, error-bounded codec that translates four user-declared tolerances into per-primitive quantization bounds: screen-space position, footprint deformation due to rotation and scale, view-dependent color, and opacity. The bounds apply throughout a declared camera domain, including previously unseen viewpoints. Position and opacity are bounded directly; footprint deformation is bounded under the rasterizer&#x27;s affine projection model, and color is bounded over all viewing directions. PLEDGE organizes quantized residuals into a progressive bitstream with explicit error bounds for every valid prefix. Experiments across thirteen scenes verify all declared per-mechanism bounds and demonstrate competitive rate-distortion performance. The four tolerances incur substantially different rate costs, so users can spend rate where their application needs it.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Existing 3D Gaussian Splatting (3DGS) codecs report reconstruction quality after compression, and give users little control over the distortion of individual primitives.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Physical-Field-Bridged Material Parameter Inference from Multi-View Deformation Videos</div>
+<div class="meta-line">Authors: Linrui Shou, Jie Li, Yu Liu, Tao Huang</div>
+<div class="meta-line">First: 2026-10-13T02:08:37+00:00 · Latest: 2026-10-13T02:08:37+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.17591v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.17591v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Estimating simulation-ready material parameters from visual observations is crucial for deformable-object manipulation but challenging because material properties are only indirectly revealed through physical responses. We introduce physical-field-bridged material inference, a single-pass framework that uses dense physical responses to connect multi-view RGB deformation videos with constitutive-type classification and continuous parameter regression. Unlike inverse-physics methods requiring per-scene reconstruction, online tuning, or simulation-in-the-loop optimization, our model predicts force/contact masks, projected motion-flow fields, and projected stress-response maps, then conditions material inference on these fields to reduce reliance on appearance or category shortcuts. We construct DeformFieldBench, a 3DGS MPM learning environment comprising 5,000 simulations across 100 object shapes and five mechanically informative loading modes, with dense pixel-aligned physical supervision. Our method achieves the best median errors on all four continuous parameters, improves stress-hotspot recall from 0.0762 to 0.5121, and attains 0.8676 SSIM/36.82 dB PSNR in same-simulator replay on unseen objects. Under a protocol-matched GSO evaluation, inference and future-state prediction take approximately 30 seconds, compared with 15-120 minutes for per-scene optimization. The method also yields measurable replay agreement on five real-world sequences. These results support dense physical fields as an effective bridge for fast material inference, while cross-simulator and real-world tests reveal remaining domain and identifiability gaps.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Estimating simulation-ready material parameters from visual observations is crucial for deformable-object manipulation but challenging because material properties are only indirectly revealed through physical responses.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Colored Graph Signal Diffusion Models</div>
+<div class="meta-line">Authors: Yiğit Berkay Uslu, Samar Hadou, Shirin Saeedi Bidokhti, Alejandro Ribeiro</div>
+<div class="meta-line">Venue: ICASSP 2027</div>
+<div class="meta-line">First: 2026-10-12T18:35:43+00:00 · Latest: 2026-10-12T18:35:43+00:00</div>
+<div class="meta-line">Comments: Submission under review for ICASSP 2027</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.17282v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.17282v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Standard diffusion processes with isotropic noise corruption are not spectrally neutral. They inherit a coarse-to-fine generation hierarchy from the nonuniform data spectrum, because each frequency band loses signal-to-noise ratio (SNR) at its own rate. For signals on a graph, the relevant spectrum is that of the graph shift operator (GSO). A natural construction, therefore, builds both the diffusion dynamics and the denoiser from graph filters of the GSO, and any such design also takes a position on this hierarchy. We expose this hierarchy as a tunable axis through a family of colored score-based diffusions. Fixing the terminal prior to a Gaussian colored by the GSO couples the drift and diffusion through a positive spectral rate, which acts as a clock for each graph-frequency band. The clock sets when a band loses and recovers information, and the forward processes of standard and certain graph-aware diffusions appear as members of this family. A GSO-valued EDM preconditioning splits the denoiser into an analytic Wiener head that carries the Gaussian second-order structure and a graph neural network (GNN) that learns the remaining non-Gaussian dependencies. Numerical experiments show that colored diffusions reach a given generation quality in far fewer sampling steps than standard diffusion.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Standard diffusion processes with isotropic noise corruption are not spectrally neutral.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">AReA: Adaptive Receptive-Field Attention for Efficient High-Resolution Diffusion Transformers</div>
+<div class="meta-line">Authors: Javad Rajabi, Koorosh Roohi, David B. Lindell, Babak Taati</div>
+<div class="meta-line">First: 2026-10-12T18:01:13+00:00 · Latest: 2026-10-12T18:01:13+00:00</div>
+<div class="meta-line">Comments: 27 pages, 14 figures. Project page: https://rajabi2001.github.io/area/</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.17227v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.17227v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a> · <a href="https://rajabi2001.github.io/area/">Project1</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Generating images beyond the training resolution of Diffusion Transformers (DiTs) remains challenging, as the number of tokens grows rapidly with resolution, full attention becomes expensive, and outputs often suffer from structural distortions and degraded detail. We identify uniform full attention as the common source of both problems. Attending to all tokens at every step causes quadratic cost and exposes the model to more tokens and relative distances beyond the training range, pushing the model out of distribution. We observe that attention&#x27;s effective receptive field narrows during denoising, from global in early steps that form structure to local in later steps that refine details. We propose AReA, a training-free attention mechanism whose receptive field evolves from coarse to fine, following the denoising progression. In early steps, AReA applies cross-scale coarse attention over downsampled keys and values, capturing global context, while in later steps it applies local attention within progressively shrinking windows. Without additional parameters or training, experiments show that AReA consistently outperforms state-of-the-art training-free baselines across target resolutions and different models, while also being faster and more efficient.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Generating images beyond the training resolution of Diffusion Transformers (DiTs) remains challenging, as the number of tokens grows rapidly with resolution, full attention becomes expensive, and outputs often suffer from structural distortions and degraded detail.</div>
+</details>
+</div></div>
+    <details style="margin-top:16px" class="detail"><summary>History</summary>
+      <div class="history-list"><a href="archive/20261015_0607.html">20261015_0607</a>
+<a href="archive/20261014_0713.html">20261014_0713</a>
+<a href="archive/20261013_0910.html">20261013_0910</a>
+<a href="archive/20261012_0644.html">20261012_0644</a>
+<a href="archive/20261011_0618.html">20261011_0618</a>
+<a href="archive/20261010_0706.html">20261010_0706</a>
+<a href="archive/20261009_0742.html">20261009_0742</a>
+<a href="archive/20261008_0731.html">20261008_0731</a>
+<a href="archive/20261007_0657.html">20261007_0657</a>
+<a href="archive/20261006_0840.html">20261006_0840</a>
+<a href="archive/20261005_0615.html">20261005_0615</a>
+<a href="archive/20261004_0602.html">20261004_0602</a>
+<a href="archive/20261003_0656.html">20261003_0656</a>
+<a href="archive/20261002_0703.html">20261002_0703</a>
+<a href="archive/20261001_0652.html">20261001_0652</a>
+<a href="archive/20260930_0653.html">20260930_0653</a>
+<a href="archive/20260929_0747.html">20260929_0747</a>
+<a href="archive/20260928_0554.html">20260928_0554</a>
+<a href="archive/20260927_0555.html">20260927_0555</a>
+<a href="archive/20260926_0604.html">20260926_0604</a>
+<a href="archive/20260925_0606.html">20260925_0606</a>
+<a href="archive/20260924_0608.html">20260924_0608</a>
+<a href="archive/20260923_0552.html">20260923_0552</a>
+<a href="archive/20260922_0631.html">20260922_0631</a>
+<a href="archive/20260921_0516.html">20260921_0516</a>
+<a href="archive/20260920_0521.html">20260920_0521</a>
+<a href="archive/20260919_0530.html">20260919_0530</a>
+<a href="archive/20260918_0558.html">20260918_0558</a>
+<a href="archive/20260917_0558.html">20260917_0558</a>
+<a href="archive/20260916_0559.html">20260916_0559</a>
+<a href="archive/20260915_0626.html">20260915_0626</a>
+<a href="archive/20260913_0519.html">20260913_0519</a>
+<a href="archive/20260912_0535.html">20260912_0535</a>
+<a href="archive/20260911_0530.html">20260911_0530</a>
+<a href="archive/20260910_0533.html">20260910_0533</a>
+<a href="archive/20260909_0541.html">20260909_0541</a>
+<a href="archive/20260908_0557.html">20260908_0557</a>
+<a href="archive/20260907_0509.html">20260907_0509</a>
+<a href="archive/20260906_0500.html">20260906_0500</a>
+<a href="archive/20260905_0519.html">20260905_0519</a>
+<a href="archive/20260904_0537.html">20260904_0537</a>
+<a href="archive/20260903_0539.html">20260903_0539</a>
+<a href="archive/20260902_0539.html">20260902_0539</a>
+<a href="archive/20260901_0710.html">20260901_0710</a>
+<a href="archive/20260831_0553.html">20260831_0553</a>
+<a href="archive/20260830_0534.html">20260830_0534</a>
+<a href="archive/20260829_1002.html">20260829_1002</a>
+<a href="archive/20260828_1028.html">20260828_1028</a>
+<a href="archive/20260827_0543.html">20260827_0543</a>
+<a href="archive/20260826_0334.html">20260826_0334</a>
+<a href="archive/20260825_0332.html">20260825_0332</a>
+<a href="archive/20260824_0324.html">20260824_0324</a>
+<a href="archive/20260823_0325.html">20260823_0325</a>
+<a href="archive/20260822_0328.html">20260822_0328</a>
+<a href="archive/20260821_0334.html">20260821_0334</a>
+<a href="archive/20260820_0328.html">20260820_0328</a>
+<a href="archive/20260819_0333.html">20260819_0333</a>
+<a href="archive/20260818_0331.html">20260818_0331</a>
+<a href="archive/20260817_0323.html">20260817_0323</a>
+<a href="archive/20260816_0324.html">20260816_0324</a>
+<a href="archive/20260815_0351.html">20260815_0351</a>
+<a href="archive/20260814_0357.html">20260814_0357</a>
+<a href="archive/20260813_0402.html">20260813_0402</a>
+<a href="archive/20260812_0403.html">20260812_0403</a>
+<a href="archive/20260811_0356.html">20260811_0356</a>
+<a href="archive/20260810_0336.html">20260810_0336</a>
+<a href="archive/20260809_0333.html">20260809_0333</a>
+<a href="archive/20260808_0354.html">20260808_0354</a>
+<a href="archive/20260807_0842.html">20260807_0842</a>
+<a href="archive/20260806_0428.html">20260806_0428</a>
+<a href="archive/20260805_0427.html">20260805_0427</a>
+<a href="archive/20260804_0429.html">20260804_0429</a>
+<a href="archive/20260803_0412.html">20260803_0412</a>
+<a href="archive/20260802_0412.html">20260802_0412</a>
+<a href="archive/20260801_0422.html">20260801_0422</a>
+<a href="archive/20260731_0417.html">20260731_0417</a>
+<a href="archive/20260730_0414.html">20260730_0414</a>
+<a href="archive/20260729_0418.html">20260729_0418</a>
+<a href="archive/20260728_0425.html">20260728_0425</a>
+<a href="archive/20260727_0412.html">20260727_0412</a>
+<a href="archive/20260726_0413.html">20260726_0413</a>
+<a href="archive/20260725_0423.html">20260725_0423</a>
+<a href="archive/20260724_0415.html">20260724_0415</a>
+<a href="archive/20260723_0413.html">20260723_0413</a>
+<a href="archive/20260722_0421.html">20260722_0421</a>
+<a href="archive/20260721_0424.html">20260721_0424</a>
+<a href="archive/20260720_0409.html">20260720_0409</a>
+<a href="archive/20260719_0405.html">20260719_0405</a>
+<a href="archive/20260718_0408.html">20260718_0408</a>
+<a href="archive/20260717_0405.html">20260717_0405</a>
+<a href="archive/20260716_0412.html">20260716_0412</a>
+<a href="archive/20260715_0415.html">20260715_0415</a>
+<a href="archive/20260714_0418.html">20260714_0418</a>
+<a href="archive/20260713_0407.html">20260713_0407</a>
+<a href="archive/20260712_0408.html">20260712_0408</a>
+<a href="archive/20260711_0426.html">20260711_0426</a>
+<a href="archive/20260710_0449.html">20260710_0449</a>
+<a href="archive/20260709_0423.html">20260709_0423</a>
+<a href="archive/20260708_0451.html">20260708_0451</a>
+<a href="archive/20260707_0454.html">20260707_0454</a>
+<a href="archive/20260706_0417.html">20260706_0417</a>
+<a href="archive/20260705_0411.html">20260705_0411</a>
+<a href="archive/20260704_0417.html">20260704_0417</a>
+<a href="archive/20260703_0422.html">20260703_0422</a>
+<a href="archive/20260702_0449.html">20260702_0449</a>
+<a href="archive/20260701_0459.html">20260701_0459</a>
+<a href="archive/20260630_0451.html">20260630_0451</a>
+<a href="archive/20260629_0416.html">20260629_0416</a>
+<a href="archive/20260627_0450.html">20260627_0450</a>
+<a href="archive/20260626_0500.html">20260626_0500</a>
+<a href="archive/20260625_0451.html">20260625_0451</a>
+<a href="archive/20260624_0503.html">20260624_0503</a>
+<a href="archive/20260623_0534.html">20260623_0534</a>
+<a href="archive/20260622_0427.html">20260622_0427</a>
+<a href="archive/20260621_0418.html">20260621_0418</a>
+<a href="archive/20260620_0428.html">20260620_0428</a>
+<a href="archive/20260619_0525.html">20260619_0525</a>
+<a href="archive/20260618_0511.html">20260618_0511</a>
+<a href="archive/20260617_0544.html">20260617_0544</a>
+<a href="archive/20260616_0546.html">20260616_0546</a>
+<a href="archive/20260615_0421.html">20260615_0421</a>
+<a href="archive/20260614_0419.html">20260614_0419</a>
+<a href="archive/20260613_0504.html">20260613_0504</a>
+<a href="archive/20260612_0524.html">20260612_0524</a>
+<a href="archive/20260611_0527.html">20260611_0527</a>
+<a href="archive/20260610_0501.html">20260610_0501</a>
+<a href="archive/20260609_0513.html">20260609_0513</a>
+<a href="archive/20260608_0415.html">20260608_0415</a>
+<a href="archive/20260607_0412.html">20260607_0412</a>
+<a href="archive/20260606_0450.html">20260606_0450</a>
+<a href="archive/20260604_0553.html">20260604_0553</a>
+<a href="archive/20260603_0551.html">20260603_0551</a>
+<a href="archive/20260602_0613.html">20260602_0613</a>
+<a href="archive/20260601_0413.html">20260601_0413</a>
+<a href="archive/20260530_0511.html">20260530_0511</a>
+<a href="archive/20260529_0516.html">20260529_0516</a>
+<a href="archive/20260528_0504.html">20260528_0504</a>
+<a href="archive/20260527_0457.html">20260527_0457</a>
+<a href="archive/20260526_0425.html">20260526_0425</a>
+<a href="archive/20260524_0409.html">20260524_0409</a>
+<a href="archive/20260523_0445.html">20260523_0445</a>
+<a href="archive/20260522_0454.html">20260522_0454</a>
+<a href="archive/20260521_0502.html">20260521_0502</a>
+<a href="archive/20260520_0448.html">20260520_0448</a>
+<a href="archive/20260519_0427.html">20260519_0427</a>
+<a href="archive/20260518_0407.html">20260518_0407</a>
+<a href="archive/20260517_0403.html">20260517_0403</a>
+<a href="archive/20260516_0420.html">20260516_0420</a>
+<a href="archive/20260515_0429.html">20260515_0429</a>
+<a href="archive/20260514_0449.html">20260514_0449</a>
+<a href="archive/20260513_0444.html">20260513_0444</a>
+<a href="archive/20260512_0449.html">20260512_0449</a>
+<a href="archive/20260511_2120.html">20260511_2120</a>
+<a href="archive/20260511_0418.html">20260511_0418</a>
+<a href="archive/20260510_0414.html">20260510_0414</a>
+<a href="archive/20260509_0426.html">20260509_0426</a>
+<a href="archive/20260508_0435.html">20260508_0435</a>
+<a href="archive/20260507_0454.html">20260507_0454</a>
+<a href="archive/20260506_0427.html">20260506_0427</a>
+<a href="archive/20260505_0436.html">20260505_0436</a>
+<a href="archive/20260504_0410.html">20260504_0410</a>
+<a href="archive/20260503_0414.html">20260503_0414</a>
+<a href="archive/20260502_0426.html">20260502_0426</a>
+<a href="archive/20260501_0429.html">20260501_0429</a>
+<a href="archive/20260430_0430.html">20260430_0430</a>
+<a href="archive/20260429_0437.html">20260429_0437</a>
+<a href="archive/20260428_0429.html">20260428_0429</a>
+<a href="archive/20260427_0405.html">20260427_0405</a>
+<a href="archive/20260426_0404.html">20260426_0404</a>
+<a href="archive/20260425_0410.html">20260425_0410</a>
+<a href="archive/20260424_0430.html">20260424_0430</a>
+<a href="archive/20260423_0426.html">20260423_0426</a>
+<a href="archive/20260422_0424.html">20260422_0424</a>
+<a href="archive/20260421_0418.html">20260421_0418</a>
+<a href="archive/20260420_0359.html">20260420_0359</a>
+<a href="archive/20260419_0358.html">20260419_0358</a>
+<a href="archive/20260418_0415.html">20260418_0415</a>
+<a href="archive/20260417_0421.html">20260417_0421</a>
+<a href="archive/20260416_0425.html">20260416_0425</a>
+<a href="archive/20260415_0426.html">20260415_0426</a>
+<a href="archive/20260414_0423.html">20260414_0423</a>
+<a href="archive/20260413_0352.html">20260413_0352</a>
+<a href="archive/20260412_0347.html">20260412_0347</a>
+<a href="archive/20260411_0356.html">20260411_0356</a>
+<a href="archive/20260410_0412.html">20260410_0412</a>
+<a href="archive/20260409_0411.html">20260409_0411</a>
+<a href="archive/20260407_0404.html">20260407_0404</a>
+<a href="archive/20260406_0347.html">20260406_0347</a>
+<a href="archive/20260405_0344.html">20260405_0344</a>
+<a href="archive/20260404_0350.html">20260404_0350</a>
+<a href="archive/20260403_0400.html">20260403_0400</a>
+<a href="archive/20260401_0408.html">20260401_0408</a>
+<a href="archive/20260331_0407.html">20260331_0407</a>
+<a href="archive/20260329_0347.html">20260329_0347</a>
+<a href="archive/20260328_0350.html">20260328_0350</a>
+<a href="archive/20260326_0357.html">20260326_0357</a>
+<a href="archive/20260325_0405.html">20260325_0405</a>
+<a href="archive/20260324_0400.html">20260324_0400</a>
+<a href="archive/20260323_0342.html">20260323_0342</a>
+<a href="archive/20260322_0340.html">20260322_0340</a>
+<a href="archive/20260321_0347.html">20260321_0347</a>
+<a href="archive/20260320_0356.html">20260320_0356</a>
+<a href="archive/20260319_0358.html">20260319_0358</a>
+<a href="archive/20260318_0405.html">20260318_0405</a>
+<a href="archive/20260317_0401.html">20260317_0401</a>
+<a href="archive/20260316_0343.html">20260316_0343</a>
+<a href="archive/20260315_0341.html">20260315_0341</a>
+<a href="archive/20260314_0344.html">20260314_0344</a>
+<a href="archive/20260313_0352.html">20260313_0352</a>
+<a href="archive/20260312_0352.html">20260312_0352</a>
+<a href="archive/20260311_0347.html">20260311_0347</a>
+<a href="archive/20260310_0350.html">20260310_0350</a>
+<a href="archive/20260309_0338.html">20260309_0338</a>
+<a href="archive/20260308_0337.html">20260308_0337</a>
+<a href="archive/20260307_0347.html">20260307_0347</a>
+<a href="archive/20260306_0402.html">20260306_0402</a>
+<a href="archive/20260305_0348.html">20260305_0348</a>
+<a href="archive/20260304_0348.html">20260304_0348</a>
+<a href="archive/20260303_0348.html">20260303_0348</a>
+<a href="archive/20260302_0336.html">20260302_0336</a>
+<a href="archive/20260301_0339.html">20260301_0339</a>
+<a href="archive/20260228_0348.html">20260228_0348</a>
+<a href="archive/20260227_0354.html">20260227_0354</a>
+<a href="archive/20260226_0402.html">20260226_0402</a>
+<a href="archive/20260225_0404.html">20260225_0404</a>
+<a href="archive/20260224_0406.html">20260224_0406</a>
+<a href="archive/20260223_0338.html">20260223_0338</a>
+<a href="archive/20260222_0339.html">20260222_0339</a>
+<a href="archive/20260221_0345.html">20260221_0345</a>
+<a href="archive/20260220_0348.html">20260220_0348</a>
+<a href="archive/20260219_0358.html">20260219_0358</a>
+<a href="archive/20260218_0358.html">20260218_0358</a>
+<a href="archive/20260217_0343.html">20260217_0343</a>
+<a href="archive/20260216_0339.html">20260216_0339</a>
+<a href="archive/20260215_0338.html">20260215_0338</a>
+<a href="archive/20260213_0401.html">20260213_0401</a>
+<a href="archive/20260212_0404.html">20260212_0404</a>
+<a href="archive/20260210_0409.html">20260210_0409</a>
+<a href="archive/20260208_0339.html">20260208_0339</a>
+<a href="archive/20260207_0349.html">20260207_0349</a>
+<a href="archive/20260206_0347.html">20260206_0347</a>
+<a href="archive/20260205_0346.html">20260205_0346</a>
+<a href="archive/20260204_0354.html">20260204_0354</a>
+<a href="archive/20260202_0337.html">20260202_0337</a>
+<a href="archive/20260201_0333.html">20260201_0333</a>
+<a href="archive/20260131_0345.html">20260131_0345</a>
+<a href="archive/20260130_0341.html">20260130_0341</a>
+<a href="archive/20260129_0344.html">20260129_0344</a>
+<a href="archive/20260128_0341.html">20260128_0341</a>
+<a href="archive/20260127_0338.html">20260127_0338</a>
+<a href="archive/20260126_0330.html">20260126_0330</a>
+<a href="archive/20260125_0329.html">20260125_0329</a>
+<a href="archive/20260124_0337.html">20260124_0337</a>
+<a href="archive/20260123_0337.html">20260123_0337</a>
+<a href="archive/20260122_0343.html">20260122_0343</a>
+<a href="archive/20260121_0424.html">20260121_0424</a>
+<a href="archive/20260119_0329.html">20260119_0329</a>
+<a href="archive/20260118_0327.html">20260118_0327</a>
+<a href="archive/20260117_0332.html">20260117_0332</a>
+<a href="archive/20260116_0339.html">20260116_0339</a>
+<a href="archive/20260115_0334.html">20260115_0334</a>
+<a href="archive/20260114_0333.html">20260114_0333</a>
+<a href="archive/20260113_0334.html">20260113_0334</a>
+<a href="archive/20260112_0331.html">20260112_0331</a>
+<a href="archive/20260111_0329.html">20260111_0329</a>
+<a href="archive/20260110_0333.html">20260110_0333</a>
+<a href="archive/20260109_0334.html">20260109_0334</a>
+<a href="archive/20260108_0335.html">20260108_0335</a>
+<a href="archive/20260107_0330.html">20260107_0330</a>
+<a href="archive/20260106_0336.html">20260106_0336</a>
+<a href="archive/20260105_0328.html">20260105_0328</a>
+<a href="archive/20260104_0328.html">20260104_0328</a>
+<a href="archive/20260103_0325.html">20260103_0325</a>
+<a href="archive/20260102_0339.html">20260102_0339</a>
+<a href="archive/20260101_0329.html">20260101_0329</a>
+<a href="archive/20251231_0333.html">20251231_0333</a>
+<a href="archive/20251230_0332.html">20251230_0332</a>
+<a href="archive/20251229_0329.html">20251229_0329</a>
+<a href="archive/20251228_0332.html">20251228_0332</a>
+<a href="archive/20251227_0329.html">20251227_0329</a>
+<a href="archive/20251226_0330.html">20251226_0330</a>
+<a href="archive/20251225_0329.html">20251225_0329</a>
+<a href="archive/20251224_0331.html">20251224_0331</a>
+<a href="archive/20251223_0332.html">20251223_0332</a>
+<a href="archive/20251222_0328.html">20251222_0328</a>
+<a href="archive/20251221_0329.html">20251221_0329</a>
+<a href="archive/20251220_0330.html">20251220_0330</a>
+<a href="archive/20251219_0330.html">20251219_0330</a>
+<a href="archive/20251218_0345.html">20251218_0345</a>
+<a href="archive/20251217_0332.html">20251217_0332</a>
+<a href="archive/20251216_0333.html">20251216_0333</a>
+<a href="archive/20251215_0333.html">20251215_0333</a>
+<a href="archive/20251214_0327.html">20251214_0327</a>
+<a href="archive/20251212_0333.html">20251212_0333</a>
+<a href="archive/20251211_0331.html">20251211_0331</a>
+<a href="archive/20251210_0332.html">20251210_0332</a>
+<a href="archive/20251209_0331.html">20251209_0331</a>
+<a href="archive/20251208_0328.html">20251208_0328</a>
+<a href="archive/20251207_0327.html">20251207_0327</a>
+<a href="archive/20251206_0330.html">20251206_0330</a>
+<a href="archive/20251205_0331.html">20251205_0331</a>
+<a href="archive/20251204_0331.html">20251204_0331</a>
+<a href="archive/20251203_0333.html">20251203_0333</a>
+<a href="archive/20251202_0335.html">20251202_0335</a>
+<a href="archive/20251201_0328.html">20251201_0328</a>
+<a href="archive/20251130_0327.html">20251130_0327</a>
+<a href="archive/20251129_0328.html">20251129_0328</a>
+<a href="archive/20251128_0327.html">20251128_0327</a>
+<a href="archive/20251127_0327.html">20251127_0327</a>
+<a href="archive/20251126_0329.html">20251126_0329</a>
+<a href="archive/20251125_0327.html">20251125_0327</a>
+<a href="archive/20251124_0327.html">20251124_0327</a>
+<a href="archive/20251123_0326.html">20251123_0326</a>
+<a href="archive/20251122_0328.html">20251122_0328</a>
+<a href="archive/20251121_0328.html">20251121_0328</a>
+<a href="archive/20251120_0329.html">20251120_0329</a>
+<a href="archive/20251119_0328.html">20251119_0328</a>
+<a href="archive/20251118_0328.html">20251118_0328</a>
+<a href="archive/20251117_0326.html">20251117_0326</a>
+<a href="archive/20251116_0325.html">20251116_0325</a>
+<a href="archive/20251115_0327.html">20251115_0327</a>
+<a href="archive/20251114_0328.html">20251114_0328</a>
+<a href="archive/20251113_0330.html">20251113_0330</a>
+<a href="archive/20251112_0329.html">20251112_0329</a>
+<a href="archive/20251111_0328.html">20251111_0328</a>
+<a href="archive/20251110_0325.html">20251110_0325</a>
+<a href="archive/20251109_0326.html">20251109_0326</a>
+<a href="archive/20251108_0328.html">20251108_0328</a>
+<a href="archive/20251107_0328.html">20251107_0328</a>
+<a href="archive/20251106_0329.html">20251106_0329</a>
+<a href="archive/20251105_0326.html">20251105_0326</a>
+<a href="archive/20251104_0327.html">20251104_0327</a>
+<a href="archive/20251103_0324.html">20251103_0324</a>
+<a href="archive/20251102_0326.html">20251102_0326</a>
+<a href="archive/20251101_0324.html">20251101_0324</a>
+<a href="archive/20251031_0328.html">20251031_0328</a>
+<a href="archive/20251030_0330.html">20251030_0330</a>
+<a href="archive/20251029_0329.html">20251029_0329</a>
+<a href="archive/20251028_0329.html">20251028_0329</a>
+<a href="archive/20251027_0322.html">20251027_0322</a>
+<a href="archive/20251026_0327.html">20251026_0327</a>
+<a href="archive/20251025_0331.html">20251025_0331</a>
+<a href="archive/20251024_0329.html">20251024_0329</a>
+<a href="archive/20251023_0329.html">20251023_0329</a>
+<a href="archive/20251022_0330.html">20251022_0330</a>
+<a href="archive/20251021_0331.html">20251021_0331</a>
+<a href="archive/20251020_0328.html">20251020_0328</a>
+<a href="archive/20251019_0321.html">20251019_0321</a>
+<a href="archive/20251018_0327.html">20251018_0327</a>
+<a href="archive/20251017_0320.html">20251017_0320</a>
+<a href="archive/20251016_0328.html">20251016_0328</a>
+<a href="archive/20251015_0328.html">20251015_0328</a>
+<a href="archive/20251014_0323.html">20251014_0323</a>
+<a href="archive/20251011_0328.html">20251011_0328</a>
+<a href="archive/20251010_0330.html">20251010_0330</a>
+<a href="archive/20251009_0321.html">20251009_0321</a>
+<a href="archive/20251008_0343.html">20251008_0343</a>
+<a href="archive/20251007_0353.html">20251007_0353</a>
+<a href="archive/20251006_0325.html">20251006_0325</a>
+<a href="archive/20251005_0350.html">20251005_0350</a>
+<a href="archive/20251004_0352.html">20251004_0352</a>
+<a href="archive/20251003_0352.html">20251003_0352</a>
+<a href="archive/20251002_0356.html">20251002_0356</a>
+<a href="archive/20251001_0321.html">20251001_0321</a>
+<a href="archive/20250925_0335.html">20250925_0335</a>
+<a href="archive/20250924_0350.html">20250924_0350</a>
+<a href="archive/20250923_0348.html">20250923_0348</a>
+<a href="archive/20250922_0346.html">20250922_0346</a>
+<a href="archive/20250921_0345.html">20250921_0345</a>
+<a href="archive/20250920_0342.html">20250920_0342</a>
+<a href="archive/20250919_0346.html">20250919_0346</a>
+<a href="archive/20250918_0342.html">20250918_0342</a>
+<a href="archive/20250917_0336.html">20250917_0336</a>
+<a href="archive/20250916_0333.html">20250916_0333</a>
+<a href="archive/20250915_0333.html">20250915_0333</a>
+<a href="archive/20250914_0328.html">20250914_0328</a>
+<a href="archive/20250913_0322.html">20250913_0322</a>
+<a href="archive/20250912_0335.html">20250912_0335</a>
+<a href="archive/20250911_0337.html">20250911_0337</a>
+<a href="archive/20250910_0338.html">20250910_0338</a>
+<a href="archive/20250909_0341.html">20250909_0341</a>
+<a href="archive/20250908_0342.html">20250908_0342</a>
+<a href="archive/20250907_0333.html">20250907_0333</a>
+<a href="archive/20250906_0350.html">20250906_0350</a>
+<a href="archive/20250905_0319.html">20250905_0319</a>
+<a href="archive/20250904_0323.html">20250904_0323</a>
+<a href="archive/20250903_0355.html">20250903_0355</a>
+<a href="archive/20250902_0325.html">20250902_0325</a>
+<a href="archive/20250901_0355.html">20250901_0355</a>
+<a href="archive/20250831_0355.html">20250831_0355</a>
+<a href="archive/20250830_0356.html">20250830_0356</a>
+<a href="archive/20250829_0355.html">20250829_0355</a>
+<a href="archive/20250828_0333.html">20250828_0333</a>
+<a href="archive/20250827_1654.html">20250827_1654</a>
+<a href="archive/20250827_1602.html">20250827_1602</a>
+<a href="archive/20250827_1557.html">20250827_1557</a>
+<a href="archive/20250827_0320.html">20250827_0320</a>
+<a href="archive/20250826_0320.html">20250826_0320</a>
+<a href="archive/20250825_1752.html">20250825_1752</a>
+<a href="archive/20250825_1709.html">20250825_1709</a>
+<a href="archive/20250825_1652.html">20250825_1652</a>
+<a href="archive/20250825_1647.html">20250825_1647</a>
+<a href="archive/20250825_1645.html">20250825_1645</a>
+<a href="archive/20250825_1631.html">20250825_1631</a>
+<a href="archive/20250825_1606.html">20250825_1606</a>
+<a href="archive/20250825_1559.html">20250825_1559</a>
+<a href="archive/20250825_1558.html">20250825_1558</a>
+<a href="archive/20250825_1556.html">20250825_1556</a>
+<a href="archive/20250825_1531.html">20250825_1531</a>
+<a href="archive/20250825_1525.html">20250825_1525</a>
+<a href="archive/20250825_1516.html">20250825_1516</a>
+<a href="archive/20250825_1450.html">20250825_1450</a>
+<a href="archive/20250825_1444.html">20250825_1444</a>
+<a href="archive/20250825_1438.html">20250825_1438</a>
+<a href="archive/20250825_1414.html">20250825_1414</a>
+<a href="archive/20250825_1413.html">20250825_1413</a>
+<a href="archive/20250825_1410.html">20250825_1410</a>
+<a href="archive/20250825_1408.html">20250825_1408</a>
+<a href="archive/20250825_1405.html">20250825_1405</a>
+<a href="archive/20250825_1401.html">20250825_1401</a>
+<a href="archive/20250825_1355.html">20250825_1355</a>
+<a href="archive/20250825_1347.html">20250825_1347</a>
+<a href="archive/20250825_1345.html">20250825_1345</a>
+<a href="archive/20250825_1344.html">20250825_1344</a>
+<a href="archive/20250825_1343.html">20250825_1343</a>
+<a href="archive/20250825_1340.html">20250825_1340</a>
+<a href="archive/20250825_1339.html">20250825_1339</a>
+<a href="archive/20250825_1333.html">20250825_1333</a>
+<a href="archive/20250825_1323.html">20250825_1323</a>
+<a href="archive/20250825_1317.html">20250825_1317</a>
+<a href="archive/20250825_1243.html">20250825_1243</a>
+<a href="archive/20250824_0342.html">20250824_0342</a>
+<a href="archive/20250823_0343.html">20250823_0343</a>
+<a href="archive/20250823_0142.html">20250823_0142</a>
+<a href="archive/20250822_2331.html">20250822_2331</a>
+<a href="archive/20250822_2308.html">20250822_2308</a>
+<a href="archive/20250822_2258.html">20250822_2258</a>
+<a href="archive/20250822_2241.html">20250822_2241</a>
+<a href="archive/20250822_2228.html">20250822_2228</a>
+<a href="archive/20250822_2206.html">20250822_2206</a>
+<a href="archive/20250822_2147.html">20250822_2147</a>
+<a href="archive/20250822_2111.html">20250822_2111</a>
+<a href="archive/20250822_1259.html">20250822_1259</a>
+<a href="archive/20250822_1233.html">20250822_1233</a>
+<a href="archive/20250822_1229.html">20250822_1229</a>
+<a href="archive/20250822_1223.html">20250822_1223</a>
+<a href="archive/20250822_1210.html">20250822_1210</a>
+<a href="archive/20250822_1201.html">20250822_1201</a>
+<a href="archive/20250822_1111.html">20250822_1111</a>
+<a href="archive/20250822_1058.html">20250822_1058</a>
+<a href="archive/20250822_1052.html">20250822_1052</a>
+<a href="archive/20250822_1045.html">20250822_1045</a>
+<a href="archive/20250822_0657.html">20250822_0657</a>
+<a href="archive/20250822_0553.html">20250822_0553</a></div>
+    </details>
+    <div class="footer">Generated by arxiv-tracker</div>
+  </div>
+</body></html>
